@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover Recipes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+
+        header {
+            background-color: #ff5722;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .search-bar {
+            margin: 20px auto;
+            max-width: 800px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-bar input[type="text"] {
+            width: 70%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .search-bar button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #ff5722;
+            color: white;
+            cursor: pointer;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .search-bar button:hover {
+            background-color: #e64a19;
+        }
+
+        .ingredient-input {
+            margin: 20px auto;
+            max-width: 800px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .ingredient-input h2 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .ingredient-category {
+            margin-bottom: 20px;
+        }
+
+        .ingredient-category h3 {
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .ingredient-category input {
+            margin-right: 10px;
+        }
+
+        .ingredient-category label {
+            margin-right: 20px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .ingredient-category button {
+            padding: 5px 10px;
+            font-size: 14px;
+            border: none;
+            background-color: #ff5722;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .ingredient-category button:hover {
+            background-color: #e64a19;
+        }
+
+        .recipe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .recipe-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .recipe-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .recipe-content {
+            padding: 15px;
+        }
+
+        .recipe-title {
+            font-size: 18px;
+            margin: 0 0 10px;
+            color: #333;
+        }
+
+        .recipe-description {
+            font-size: 14px;
+            color: #666;
+            margin: 0 0 10px;
+        }
+
+        .view-recipe {
+            text-decoration: none;
+            color: #ff5722;
+            font-weight: bold;
+        }
+
+        .view-recipe:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Discover Recipes</h1>
+        <p>Find your next favorite recipe from our collection!</p>
+    </header>
+
+    <div class="search-bar">
+        <input type="text" placeholder="Search recipes...">
+        <button>Search</button>
+    </div>
+
+    <div class="ingredient-input">
+        <h2>Select Ingredients</h2>
+
+        <div class="ingredient-category">
+            <h3>Oils</h3>
+            <label><input type="checkbox" value="Olive Oil"> Olive Oil</label>
+            <label><input type="checkbox" value="Vegetable Oil"> Vegetable Oil</label>
+            <label><input type="checkbox" value="Coconut Oil"> Coconut Oil</label>
+        </div>
+
+        <div class="ingredient-category">
+            <h3>Fruits</h3>
+            <label><input type="checkbox" value="Apple"> Apple</label>
+            <label><input type="checkbox" value="Banana"> Banana</label>
+            <label><input type="checkbox" value="Mango"> Mango</label>
+        </div>
+
+        <div class="ingredient-category">
+            <h3>Vegetables</h3>
+            <label><input type="checkbox" value="Carrot"> Carrot</label>
+            <label><input type="checkbox" value="Spinach"> Spinach</label>
+            <label><input type="checkbox" value="Potato"> Potato</label>
+        </div>
+
+        <div class="ingredient-category">
+            <h3>Spices</h3>
+            <label><input type="checkbox" value="Cumin"> Cumin</label>
+            <label><input type="checkbox" value="Turmeric"> Turmeric</label>
+            <label><input type="checkbox" value="Black Pepper"> Black Pepper</label>
+        </div>
+
+        <div class="ingredient-category">
+            <h3>Pantry Essentials</h3>
+            <label><input type="checkbox" value="Flour"> Flour</label>
+            <label><input type="checkbox" value="Sugar"> Sugar</label>
+            <label><input type="checkbox" value="Salt"> Salt</label>
+            <label><input type="checkbox" value="Egg">Eggs</label>
+        </div>
+
+        <button onclick="findRecipes()">Find Recipes</button>
+    </div>
+
+    <div class="recipe-grid">
+        <!-- Example Recipe Card -->
+        <div class="recipe-card">
+            <img src="https://via.placeholder.com/300x200" alt="Recipe Image">
+            <div class="recipe-content">
+                <h2 class="recipe-title">Spaghetti Carbonara</h2>
+                <p class="recipe-description">A classic Italian pasta dish made with eggs, cheese, pancetta, and pepper.</p>
+                <a href="#" class="view-recipe">View Recipe</a>
+            </div>
+        </div>
+
+        <div class="recipe-card">
+            <img src="https://via.placeholder.com/300x200" alt="Recipe Image">
+            <div class="recipe-content">
+                <h2 class="recipe-title">Chicken Curry</h2>
+                <p class="recipe-description">A flavorful dish made with chicken, spices, and a creamy curry sauce.</p>
+                <a href="#" class="view-recipe">View Recipe</a>
+            </div>
+        </div>
+
+        <div class="recipe-card">
+            <img src="https://via.placeholder.com/300x200" alt="Recipe Image">
+            <div class="recipe-content">
+                <h2 class="recipe-title">Vegan Buddha Bowl</h2>
+                <p class="recipe-description">A healthy mix of grains, veggies, and plant-based protein.</p>
+                <a href="#" class="view-recipe">View Recipe</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function findRecipes() {
+            const selectedIngredients = Array.from(document.querySelectorAll('input[type="checkbox"]:checked'))
+                .map(input => input.value);
+
+            alert('Selected Ingredients: ' + selectedIngredients.join(', '));
+            // Here, you can send the selectedIngredients to your backend to fetch matching recipes
+        }
+    </script>
+</body>
+</html>
