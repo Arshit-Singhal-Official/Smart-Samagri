@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recipe System</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      background: linear-gradient(to right, #ff7e5f, #feb47b);
+      color: #333;
+      overflow-x: hidden;
+    }
+    header {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 20px 10%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+    }
+    header h1 {
+      color: #ff7e5f;
+      font-size: 24px;
+    }
+    nav ul {
+      display: flex;
+      list-style: none;
+    }
+    nav ul li {
+      margin: 0 10px;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      padding: 8px 12px;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+    nav ul li a:hover {
+      background: #ff7e5f;
+      color: white;
+    }
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10%;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .hero .content {
+      max-width: 500px;
+    }
+    .hero h1 {
+      font-size: 48px;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+    .hero p {
+      font-size: 18px;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+    .hero .btn {
+      display: inline-block;
+      background: #fff;
+      color: #ff7e5f;
+      padding: 12px 25px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .hero .btn:hover {
+      background: #ff7e5f;
+      color: #fff;
+    }
+    .hero img {
+      margin-top: 60px;
+      max-width: 100%;
+      height: auto;
+      max-height: 600px;
+      border-radius: 5px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+    .features {
+      padding: 50px 10%;
+      background: #fff;
+    }
+    .features h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #ff7e5f;
+    }
+    .features .cards {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .features .card {
+      background: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      max-width: 300px;
+      text-align: center;
+    }
+    .features .card img {
+      width: 80px;
+      margin-bottom: 15px;
+    }
+    .features .card h3 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .features .card p {
+      color: #777;
+    }
+    footer {
+      background: #333;
+      color: #fff;
+      text-align: center;
+      padding: 10px 0;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+<!-- Header -->
+<header>
+  <h1>SmartSmagri</h1>
+  <nav>
+    <ul>
+      <li><a href="#features">Features</a></li>
+      <li><a href="signup.html">Sign Up</a></li>
+      <li><a href="signin.html">Sign In</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="content">
+    <h1>Discover Delicious Recipes</h1>
+    <p>Welcome to Smart Smagri, your one-stop solution to explore, create, and share amazing recipes. Start your culinary adventure today!</p>
+    <a href="signup.html" class="btn">Get Started</a>
+  </div>
+  <img src="Picture1.png" alt="Delicious Food">
+</section>
+
+<!-- Features Section -->
+<section class="features" id="features">
+  <h2>Our Features</h2>
+  <div class="cards">
+    <div class="card">
+      <img src="https://img.icons8.com/color/80/cookbook.png" alt="Recipe Management">
+      <h3>Recipe Management</h3>
+      <p>Organize and save all your favorite recipes in one place.</p>
+    </div>
+    <div class="card">
+      <img src="https://img.icons8.com/color/80/share.png" alt="Sharing">
+      <h3>Share with Friends</h3>
+      <p>Share your recipes with family and friends with a single click.</p>
+    </div>
+    <div class="card">
+      <img src="https://img.icons8.com/color/80/chef-hat.png" alt="Discover Recipes">
+      <h3>Discover Recipes</h3>
+      <p>Explore thousands of recipes from our global community.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>© 2024 SmartSmagri. All rights reserved.</p>
+</footer>
+</body>
+</html>
