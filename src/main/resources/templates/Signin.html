@@ -55,24 +55,30 @@
         button:hover {
             background-color: #45a049;
         }
+        .error {
+            color: red;
+            text-align: center;
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
 <form th:action="@{/users/signin}" method="post">
     <h1>Sign In</h1>
+    <div th:if="${error}" class="error" th:text="${error}"></div>
     <div>
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required/>
     </div>
     <div>
         <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required/>
+        <input type="password" id="plainPassword" name="plainPassword" required/>
     </div>
     <div>
         <button type="submit">Sign In</button>
     </div>
     <div style="text-align: center; margin-top: 10px;">
-        Don't have an account? <a href="signup.html">Sign Up</a>
+        Don't have an account? <a href="signup">Sign Up</a>
     </div>
 </form>
 </body>

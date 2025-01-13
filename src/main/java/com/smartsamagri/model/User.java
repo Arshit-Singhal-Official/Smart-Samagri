@@ -24,6 +24,9 @@ public class User {
     @Column(name = "created_at", nullable = false)
     private Timestamp createdAt;
 
+    @Transient
+    private String plainPassword;
+
     // Getters and Setters
     public Long getId() {
         return id;
@@ -57,8 +60,16 @@ public class User {
         this.passwordHash = passwordHash;
     }
 
-    public boolean checkPassword(String password) {
-        return PasswordUtil.checkPassword(password, this.passwordHash);
+    public boolean checkPassword(String plainPassword) {
+        return PasswordUtil.checkPassword(plainPassword, this.passwordHash);
+    }
+
+    public String getPlainPassword() {
+        return plainPassword;
+    }
+
+    public void setPlainPassword(String plainPassword) {
+        this.plainPassword = plainPassword;
     }
 
     public void setPassword(String password) {

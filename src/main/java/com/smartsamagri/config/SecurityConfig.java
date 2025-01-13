@@ -15,8 +15,9 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(authorizeHttpRequests ->
                 authorizeHttpRequests
-                    .requestMatchers("/login", "/health").permitAll() // Allow access to /login and /health without authentication
-                    .anyRequest().authenticated() // Require authentication for all other requests
+                    .requestMatchers( "/health","/users/signin","/users/signup").permitAll() // Allow access to /login and /health without authentication
+                    .requestMatchers("/users/**").authenticated()
+                    .anyRequest().permitAll() // Require authentication for all other requests
             )
             .formLogin(formLogin -> formLogin.defaultSuccessUrl("/")) // Use default login page
             .logout(logout -> logout.logoutSuccessUrl("/")); // Use default logout
