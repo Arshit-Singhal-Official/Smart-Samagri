@@ -12,8 +12,8 @@ import java.util.List;
 @Controller
 public class RecipeWebController {
 
-    private final String API_KEY = "3a6663a01202453c88a46bbe0f911c73";
-    private final String API_URL = "https://api.spoonacular.com/recipes/findByIngredients";
+    private final String API_KEY = "Your_key";
+    private final String API_URL = "Your_url";
 
     @PostMapping("/recipes/findRecipes")
 public ResponseEntity<String> findRecipes(@RequestBody List<String> ingredients) {
