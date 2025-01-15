@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recipe Finder</title>
+    <title>Discover Recipes</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -34,6 +34,9 @@
             max-width: 1200px;
             margin: 20px auto;
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .search-bar {
@@ -65,9 +68,9 @@
         }
 
         .ingredients {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             margin-top: 20px;
         }
 
@@ -76,6 +79,7 @@
             border-radius: 8px;
             padding: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 10px;
         }
 
         .ingredient-category h3 {
@@ -162,6 +166,34 @@
         .recipe-card a:hover {
             text-decoration: underline;
         }
+
+        .find-recipes-button {
+            background-color: #4a6572; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 12px;
+            transition-duration: 0.4s;
+        }
+
+        .find-recipes-button:hover {
+            background-color: #232f34;
+            color: white;
+            border: 2px solid #232f34;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -176,87 +208,88 @@
         <button>Search</button>
     </div>
 
-    <div class="ingredients">
-        <div class="ingredient-category">
-            <h3>Pantry Essentials</h3>
-            <label><input type="checkbox" value="Butter"> Butter</label>
-            <label><input type="checkbox" value="Egg"> Egg</label>
-            <label><input type="checkbox" value="Salt"> Salt</label>
-            <label><input type="checkbox" value="Garlic"> Garlic</label>
-            <label><input type="checkbox" value="Milk"> Milk</label>
-            <label><input type="checkbox" value="Bread"> Bread</label>
-            <label><input type="checkbox" value="Sugar"> Sugar</label>
-            <label><input type="checkbox" value="Mayonnaise"> Mayonnaise</label>
-            <label><input type="checkbox" value="Baking Powder"> Baking Powder</label>
-            <label><input type="checkbox" value="Cheese"> Cheese</label>
-            <label><input type="checkbox" value="Yogurt"> Yogurt</label>
-            <label><input type="checkbox" value="Cream"> Cream</label>
-        </div>
+    <form action="/recipes/findRecipes" method="post">
+        <div class="ingredients">
+            <div class="ingredient-category">
+                <h3>Pantry Essentials</h3>
+                <label><input type="checkbox" name="ingredients" value="Butter"> Butter</label>
+                <label><input type="checkbox" name="ingredients" value="Egg"> Egg</label>
+                <label><input type="checkbox" name="ingredients" value="Salt"> Salt</label>
+                <label><input type="checkbox" name="ingredients" value="Garlic"> Garlic</label>
+                <label><input type="checkbox" name="ingredients" value="Milk"> Milk</label>
+                <label><input type="checkbox" name="ingredients" value="Bread"> Bread</label>
+                <label><input type="checkbox" name="ingredients" value="Sugar"> Sugar</label>
+                <label><input type="checkbox" name="ingredients" value="Mayonnaise"> Mayonnaise</label>
+                <label><input type="checkbox" name="ingredients" value="Baking Powder"> Baking Powder</label>
+                <label><input type="checkbox" name="ingredients" value="Cheese"> Cheese</label>
+                <label><input type="checkbox" name="ingredients" value="Yogurt"> Yogurt</label>
+                <label><input type="checkbox" name="ingredients" value="Cream"> Cream</label>
+            </div>
 
-        <div class="ingredient-category">
-            <h3>Fruits</h3>
-            <label><input type="checkbox" value="Apple"> Apple</label>
-            <label><input type="checkbox" value="Banana"> Banana</label>
-            <label><input type="checkbox" value="Mango"> Mango</label>
-            <label><input type="checkbox" value="Grapes"> Grapes</label>
-            <label><input type="checkbox" value="Pineapple"> Pineapple</label>
-            <label><input type="checkbox" value="Strawberry"> Strawberry</label>
-        </div>
+            <div class="ingredient-category">
+                <h3>Fruits</h3>
+                <label><input type="checkbox" name="ingredients" value="Apple"> Apple</label>
+                <label><input type="checkbox" name="ingredients" value="Banana"> Banana</label>
+                <label><input type="checkbox" name="ingredients" value="Mango"> Mango</label>
+                <label><input type="checkbox" name="ingredients" value="Grapes"> Grapes</label>
+                <label><input type="checkbox" name="ingredients" value="Pineapple"> Pineapple</label>
+                <label><input type="checkbox" name="ingredients" value="Strawberry"> Strawberry</label>
+            </div>
 
-        <div class="ingredient-category">
-            <h3>Vegetables</h3>
-            <label><input type="checkbox" value="Carrot"> Carrot</label>
-            <label><input type="checkbox" value="Spinach"> Spinach</label>
-            <label><input type="checkbox" value="Potato"> Potato</label>
-            <label><input type="checkbox" value="Bell Pepper"> Bell Pepper</label>
-            <label><input type="checkbox" value="Tomato"> Tomato</label>
-            <label><input type="checkbox" value="Cabbage"> Cabbage</label>
-            <label><input type="checkbox" value="Paneer"> Paneer</label>
-            <label><input type="checkbox" value="Pumpkin"> Pumpkin</label>
-            <label><input type="checkbox" value="Bottle Gourd"> Bottle Gourd</label>
-            <label><input type="checkbox" value="Bitter Gourd"> Bitter Gourd</label>
-            <label><input type="checkbox" value="Cauliflower"> Cauliflower</label>
-            <label><input type="checkbox" value="Radish"> Radish</label>
-            <label><input type="checkbox" value="Beetroot"> Beetroot</label>
-            <label><input type="checkbox" value="Corn"> Corn</label>
-        </div>
+            <div class="ingredient-category">
+                <h3>Vegetables</h3>
+                <label><input type="checkbox" name="ingredients" value="Carrot"> Carrot</label>
+                <label><input type="checkbox" name="ingredients" value="Spinach"> Spinach</label>
+                <label><input type="checkbox" name="ingredients" value="Potato"> Potato</label>
+                <label><input type="checkbox" name="ingredients" value="Bell Pepper"> Bell Pepper</label>
+                <label><input type="checkbox" name="ingredients" value="Tomato"> Tomato</label>
+                <label><input type="checkbox" name="ingredients" value="Cabbage"> Cabbage</label>
+                <label><input type="checkbox" name="ingredients" value="Paneer"> Paneer</label>
+                <label><input type="checkbox" name="ingredients" value="Pumpkin"> Pumpkin</label>
+                <label><input type="checkbox" name="ingredients" value="Bottle Gourd"> Bottle Gourd</label>
+                <label><input type="checkbox" name="ingredients" value="Bitter Gourd"> Bitter Gourd</label>
+                <label><input type="checkbox" name="ingredients" value="Cauliflower"> Cauliflower</label>
+                <label><input type="checkbox" name="ingredients" value="Radish"> Radish</label>
+                <label><input type="checkbox" name="ingredients" value="Beetroot"> Beetroot</label>
+                <label><input type="checkbox" name="ingredients" value="Corn"> Corn</label>
+            </div>
 
-        <div class="ingredient-category">
-            <h3>Spices</h3>
-            <label><input type="checkbox" value="Cumin"> Cumin</label>
-            <label><input type="checkbox" value="Turmeric"> Turmeric</label>
-            <label><input type="checkbox" value="Black Pepper"> Black Pepper</label>
-            <label><input type="checkbox" value="Red Chilli"> Red Chilli</label>
-            <label><input type="checkbox" value="Carrom Seeds"> Carrom Seeds</label>
-            <label><input type="checkbox" value="Garam Masala"> Garam Masala</label>
-            <label><input type="checkbox" value="Black Pepper"> Black Pepper</label>
-            <label><input type="checkbox" value="Coriander Powder"> Coriander Powder</label>
-        </div>
+            <div class="ingredient-category">
+                <h3>Spices</h3>
+                <label><input type="checkbox" name="ingredients" value="Cumin"> Cumin</label>
+                <label><input type="checkbox" name="ingredients" value="Turmeric"> Turmeric</label>
+                <label><input type="checkbox" name="ingredients" value="Black Pepper"> Black Pepper</label>
+                <label><input type="checkbox" name="ingredients" value="Red Chilli"> Red Chilli</label>
+                <label><input type="checkbox" name="ingredients" value="Carrom Seeds"> Carrom Seeds</label>
+                <label><input type="checkbox" name="ingredients" value="Garam Masala"> Garam Masala</label>
+                <label><input type="checkbox" name="ingredients" value="Black Pepper"> Black Pepper</label>
+                <label><input type="checkbox" name="ingredients" value="Coriander Powder"> Coriander Powder</label>
+            </div>
 
-        <div class="ingredient-category">
-            <h3>Oils</h3>
-            <label><input type="checkbox" value="Refined Oil"> Refined Oil</label>
-            <label><input type="checkbox" value="Mustard Oil"> Mustard Oil</label>
-            <label><input type="checkbox" value="Rice Bran Oil"> Rice Bran Oil</label>
-            <label><input type="checkbox" value="Coconut Oil"> Coconut Oil</label>
-            <label><input type="checkbox" value="Ghee">Ghee</label>
-            <label><input type="checkbox" value="Olive Oil"> Olive Oil</label>
-        </div>
+            <div class="ingredient-category">
+                <h3>Oils</h3>
+                <label><input type="checkbox" name="ingredients" value="Refined Oil"> Refined Oil</label>
+                <label><input type="checkbox" name="ingredients" value="Mustard Oil"> Mustard Oil</label>
+                <label><input type="checkbox" name="ingredients" value="Rice Bran Oil"> Rice Bran Oil</label>
+                <label><input type="checkbox" name="ingredients" value="Coconut Oil"> Coconut Oil</label>
+                <label><input type="checkbox" name="ingredients" value="Ghee">Ghee</label>
+                <label><input type="checkbox" name="ingredients" value="Olive Oil"> Olive Oil</label>
+            </div>
 
-        <div class="ingredient-category">
-            <h3>Non-Veg</h3>
-            <label><input type="checkbox" value="Chicken"> Chicken</label>
-            <label><input type="checkbox" value="Fish"> Fish</label>
-            <label><input type="checkbox" value="Prawns"> Prawns</label>
-            <label><input type="checkbox" value="Shrimp"> Shrimp</label>
-            <label><input type="checkbox" value="Mutton"> Mutton</label>
-            <label><input type="checkbox" value="Pork"> Pork</label>
+            <div class="ingredient-category">
+                <h3>Non-Veg</h3>
+                <label><input type="checkbox" name="ingredients" value="Chicken"> Chicken</label>
+                <label><input type="checkbox" name="ingredients" value="Fish"> Fish</label>
+                <label><input type="checkbox" name="ingredients" value="Prawns"> Prawns</label>
+                <label><input type="checkbox" name="ingredients" value="Shrimp"> Shrimp</label>
+                <label><input type="checkbox" name="ingredients" value="Mutton"> Mutton</label>
+                <label><input type="checkbox" name="ingredients" value="Pork"> Pork</label>
+            </div>
         </div>
-    </div>
-
-    <div class="find-recipes">
-        <button onclick="findRecipes()">Find Recipes</button>
-    </div>
+        <div class="button-container">
+            <button type="submit" class="find-recipes-button">Find Recipes</button>
+        </div>
+    </form>
 
     <div class="recipes">
         <!-- Recipe cards will appear here -->

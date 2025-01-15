@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Results</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #344955;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .recipes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .recipe-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .recipe-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .recipe-card .content {
+            padding: 15px;
+        }
+
+        .recipe-card h4 {
+            margin: 0 0 10px;
+            color: #344955;
+        }
+
+        .recipe-card p {
+            font-size: 14px;
+            color: #666;
+            margin: 0 0 10px;
+        }
+
+        .recipe-card a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #4a6572;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .recipe-card a:hover {
+            background-color: #232f34;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Recipe Results</h1>
+</header>
+
+<div class="container">
+    <div class="recipes" id="recipes-container">
+        <!-- Recipe cards will be dynamically generated here -->
+    </div>
+</div>
+
+<script>
+    // Sample JSON data (replace with your actual JSON or API call)
+    const recipesData = [
+    {
+        "id": 673463,
+        "title": "Slow Cooker Apple Pork Tenderloin",
+        "image": "https://img.spoonacular.com/recipes/673463-312x231.jpg",
+        "imageType": "jpg",
+        "usedIngredientCount": 2,
+        "missedIngredientCount": 2,
+        "missedIngredients": [
+            {
+                "id": 6008,
+                "amount": 2,
+                "unit": "cups",
+                "unitLong": "cups",
+                "unitShort": "cup",
+                "aisle": "Canned and Jarred",
+                "name": "beef broth",
+                "original": "2 cups beef broth",
+                "originalName": "beef broth",
+                "meta": [],
+                "image": "https://img.spoonacular.com/ingredients_100x100/beef-broth.png"
+            },
+            {
+                "id": 10218,
+                "amount": 1,
+                "unit": "serving",
+                "unitLong": "serving",
+                "unitShort": "serving",
+                "aisle": "Meat",
+                "name": "pork tenderloin",
+                "original": "Pork Tenderloin",
+                "originalName": "Pork Tenderloin",
+                "meta": [],
+                "image": "https://img.spoonacular.com/ingredients_100x100/pork-tenderloin-raw.png"
+            }
+        ],
+        "usedIngredients": [
+            {
+                "id": 9003,
+                "amount": 1,
+                "unit": "serving",
+                "unitLong": "serving",
+                "unitShort": "serving",
+                "aisle": "Produce",
+                "name": "apple r",
+                "original": "apple slicer (*optional)",
+                "originalName": "apple slicer (*optional)",
+                "meta": [
+                    "(*optional)"
+                ],
+                "image": "https://img.spoonacular.com/ingredients_100x100/apple.jpg"
+            },
+            {
+                "id": 1069003,
+                "amount": 2,
+                "unit": "",
+                "unitLong": "",
+                "unitShort": "",
+                "aisle": "Produce",
+                "name": "apples",
+                "original": "2 green apples",
+                "originalName": "green apples",
+                "meta": [
+                    "green"
+                ],
+                "extendedName": "green apples",
+                "image": "https://img.spoonacular.com/ingredients_100x100/grannysmith-apple.png"
+            }
+        ],
+        "unusedIngredients": [],
+        "likes": 0
+    },
+    {
+        "id": 660261,
+        "title": "Slow Cooked Applesauce",
+        "image": "https://img.spoonacular.com/recipes/660261-312x231.jpg",
+        "imageType": "jpg",
+        "usedIngredientCount": 1,
+        "missedIngredientCount": 2,
+        "missedIngredients": [
+            {
+                "id": 2010,
+                "amount": 0.5,
+                "unit": "teaspoon",
+                "unitLong": "teaspoons",
+                "unitShort": "tsp",
+                "aisle": "Spices and Seasonings",
+                "name": "cinnamon",
+                "original": "1/2 teaspoon cinnamon",
+                "originalName": "cinnamon",
+                "meta": [],
+                "image": "https://img.spoonacular.com/ingredients_100x100/cinnamon.jpg"
+            },
+            {
+                "id": 2025,
+                "amount": 1,
+                "unit": "pinch",
+                "unitLong": "pinch",
+                "unitShort": "pinch",
+                "aisle": "Spices and Seasonings",
+                "name": "nutmeg",
+                "original": "pinch of nutmeg",
+                "originalName": "pinch of nutmeg",
+                "meta": [],
+                "image": "https://img.spoonacular.com/ingredients_100x100/ground-nutmeg.jpg"
+            }
+        ],
+        "usedIngredients": [
+            {
+                "id": 9003,
+                "amount": 5,
+                "unit": "",
+                "unitLong": "",
+                "unitShort": "",
+                "aisle": "Produce",
+                "name": "apples from a local tree if possible",
+                "original": "5 apples from a local tree if possible",
+                "originalName": "apples from a local tree if possible",
+                "meta": [],
+                "image": "https://img.spoonacular.com/ingredients_100x100/apple.jpg"
+            }
+        ],
+        "unusedIngredients": [],
+        "likes": 2
+    },
+    {
+        "id": 640352,
+        "title": "Cranberry Apple Crisp",
+        "image": "https://img.spoonacular.com/recipes/640352-312x231.jpg",
+        "imageType": "jpg",
+        "usedIngredientCount": 1,
+        "missedIngredientCount": 3,
+        "missedIngredients": [
+            {
+                "id": 9078,
+                "amount": 2,
+                "unit": "cups",
+                "unitLong": "cups",
+                "unitShort": "cup",
+                "aisle": "Produce",
+                "name": "cranberries",
+                "original": "2 cups fresh cranberries",
+                "originalName": "fresh cranberries",
+                "meta": [
+                    "fresh"
+                ],
+                "extendedName": "fresh cranberries",
+                "image": "https://img.spoonacular.com/ingredients_100x100/cranberries.jpg"
+            },
+            {
+                "id": 1145,
+                "amount": 4,
+                "unit": "Tbs",
+                "unitLong": "Tbs",
+                "unitShort": "Tbs",
+                "aisle": "Milk, Eggs, Other Dairy",
+                "name": "butter",
+                "original": "1/2 stick (4 Tbs) unsalted butter, cut into cubes",
+                "originalName": "1/2 stick unsalted butter, cut into cubes",
+                "meta": [
+                    "unsalted",
+                    "cut into cubes"
+                ],
+                "extendedName": "unsalted butter",
+                "image": "https://img.spoonacular.com/ingredients_100x100/butter-sliced.jpg"
+            },
+            {
+                "id": 8120,
+                "amount": 1.5,
+                "unit": "cups",
+                "unitLong": "cups",
+                "unitShort": "cup",
+                "aisle": "Cereal",
+                "name": "regular oats",
+                "original": "1 1/2 cups regular oats (not quick-cooking)",
+                "originalName": "regular oats (not quick-cooking)",
+                "meta": [
+                    "(not quick-cooking)"
+                ],
+                "image": "https://img.spoonacular.com/ingredients_100x100/rolled-oats.jpg"
+            }
+        ],
+        "usedIngredients": [
+            {
+                "id": 1089003,
+                "amount": 4,
+                "unit": "cups",
+                "unitLong": "cups",
+                "unitShort": "cup",
+                "aisle": "Produce",
+                "name": "granny smith apples",
+                "original": "4 cups Granny Smith apples, chopped into ½ inch chunks",
+                "originalName": "Granny Smith apples, chopped into ½ inch chunks",
+                "meta": [
+                    "chopped"
+                ],
+                "image": "https://img.spoonacular.com/ingredients_100x100/grannysmith-apple.png"
+            }
+        ],
+        "unusedIngredients": [],
+        "likes": 11
+    },
+    {
+        "id": 663748,
+        "title": "Traditional Apple Tart",
+        "image": "https://img.spoonacular.com/recipes/663748-312x231.jpg",
+        "imageType": "jpg",
+        "usedIngredientCount": 1,
+        "missedIngredientCount": 3,
+        "missedIngredients": [
+            {
+                "id": 9083,
+                "amount": 4,
+                "unit": "tablespoons",
+                "unitLong": "tablespoons",
+                "unitShort": "Tbsp",
+                "aisle": "Produce",
+                "name": "blackcurrant jam",
+                "original": "4 tablespoons blackcurrant jam",
+                "originalName": "blackcurrant jam",
+                "meta": [],
+                "image": "https://img.spoonacular.com/ingredients_100x100/black-currants.png"
+            },
+            {
+                "id": 10018338,
+                "amount": 500,
+                "unit": "grams",
+                "unitLong": "grams",
+                "unitShort": "g",
+                "aisle": "Refrigerated",
+                "name": "oz short crust pastry - ready made if you want",
+                "original": "500 grams 1lb 2oz short crust pastry – ready made if you want",
+                "originalName": "1lb 2oz short crust pastry – ready made if you want",
+                "meta": [],
+                "image": "https://img.spoonacular.com/ingredients_100x100/dough.jpg"
+            },
+            {
+                "id": 1145,
+                "amount": 80,
+                "unit": "grams",
+                "unitLong": "grams",
+                "unitShort": "g",
+                "aisle": "Milk, Eggs, Other Dairy",
+                "name": "butter",
+                "original": "80 grams 3oz unsalted butter",
+                "originalName": "3oz unsalted butter",
+                "meta": [
+                    "unsalted"
+                ],
+                "extendedName": "unsalted butter",
+                "image": "https://img.spoonacular.com/ingredients_100x100/butter-sliced.jpg"
+            }
+        ],
+        "usedIngredients": [
+            {
+                "id": 1089003,
+                "amount": 1.5,
+                "unit": "pounds",
+                "unitLong": "pounds",
+                "unitShort": "lb",
+                "aisle": "Produce",
+                "name": "granny smiths",
+                "original": "1 1/2 pounds 3 cooking apples such as Bramley or Granny Smiths",
+                "originalName": "3 cooking apples such as Bramley or Granny Smiths",
+                "meta": [],
+                "image": "https://img.spoonacular.com/ingredients_100x100/grannysmith-apple.png"
+            }
+        ],
+        "unusedIngredients": [],
+        "likes": 1
+    },
+    {
+        "id": 641803,
+        "title": "Easy & Delish! ~ Apple Crumble",
+        "image": "https://img.spoonacular.com/recipes/641803-312x231.jpg",
+        "imageType": "jpg",
+        "usedIngredientCount": 1,
+        "missedIngredientCount": 3,
+        "missedIngredients": [
+            {
+                "id": 1001,
+                "amount": 0.75,
+                "unit": "stick",
+                "unitLong": "sticks",
+                "unitShort": "stick",
+                "aisle": "Milk, Eggs, Other Dairy",
+                "name": "butter",
+                "original": "3/4 stick of butter",
+                "originalName": "butter",
+                "meta": [],
+                "image": "https://img.spoonacular.com/ingredients_100x100/butter-sliced.jpg"
+            },
+            {
+                "id": 2011,
+                "amount": 1,
+                "unit": "Dash",
+                "unitLong": "Dash",
+                "unitShort": "Dash",
+                "aisle": "Spices and Seasonings",
+                "name": "ground cloves",
+                "original": "Dash of ground cloves",
+                "originalName": "ground cloves",
+                "meta": [],
+                "image": "https://img.spoonacular.com/ingredients_100x100/cloves.jpg"
+            },
+            {
+                "id": 9156,
+                "amount": 1,
+                "unit": "",
+                "unitLong": "",
+                "unitShort": "",
+                "aisle": "Produce",
+                "name": "lemon zest",
+                "original": "1 Zest of lemon",
+                "originalName": "Zest of lemon",
+                "meta": [],
+                "image": "https://img.spoonacular.com/ingredients_100x100/zest-lemon.jpg"
+            }
+        ],
+        "usedIngredients": [
+            {
+                "id": 9003,
+                "amount": 3,
+                "unit": "",
+                "unitLong": "",
+                "unitShort": "",
+                "aisle": "Produce",
+                "name": "apples",
+                "original": "3 apples – sliced",
+                "originalName": "apples – sliced",
+                "meta": [
+                    "sliced"
+                ],
+                "image": "https://img.spoonacular.com/ingredients_100x100/apple.jpg"
+            }
+        ],
+        "unusedIngredients": [],
+        "likes": 1
+    },
+    {
+        "id": 73420,
+        "title": "Apple Or Peach Strudel",
+        "image": "https://img.spoonacular.com/recipes/73420-312x231.jpg",
+        "imageType": "jpg",
+        "usedIngredientCount": 1,
+        "missedIngredientCount": 3,
+        "missedIngredients": [
+            {
+                "id": 18369,
+                "amount": 1,
+                "unit": "tsp",
+                "unitLong": "teaspoon",
+                "unitShort": "tsp",
+                "aisle": "Baking",
+                "name": "baking powder",
+                "original": "1 tsp baking powder",
+                "originalName": "baking powder",
+                "meta": [],
+                "image": "https://img.spoonacular.com/ingredients_100x100/white-powder.jpg"
+            },
+            {
+                "id": 2010,
+                "amount": 1,
+                "unit": "tsp",
+                "unitLong": "teaspoon",
+                "unitShort": "tsp",
+                "aisle": "Spices and Seasonings",
+                "name": "cinnamon",
+                "original": "1 tsp cinnamon",
+                "originalName": "cinnamon",
+                "meta": [],
+                "image": "https://img.spoonacular.com/ingredients_100x100/cinnamon.jpg"
+            },
+            {
+                "id": 1123,
+                "amount": 1,
+                "unit": "",
+                "unitLong": "",
+                "unitShort": "",
+                "aisle": "Milk, Eggs, Other Dairy",
+                "name": "egg",
+                "original": "1 egg",
+                "originalName": "egg",
+                "meta": [],
+                "image": "https://img.spoonacular.com/ingredients_100x100/egg.png"
+            }
+        ],
+        "usedIngredients": [
+            {
+                "id": 9003,
+                "amount": 6,
+                "unit": "large",
+                "unitLong": "larges",
+                "unitShort": "large",
+                "aisle": "Produce",
+                "name": "baking apples",
+                "original": "6 large baking apples",
+                "originalName": "baking apples",
+                "meta": [],
+                "image": "https://img.spoonacular.com/ingredients_100x100/apple.jpg"
+            }
+        ],
+        "unusedIngredients": [],
+        "likes": 0
+    },
+    {
+        "id": 632574,
+        "title": "Apple Persimmon Sauce",
+        "image": "https://img.spoonacular.com/recipes/632574-312x231.jpg",
+        "imageType": "jpg",
+        "usedIngredientCount": 1,
+        "missedIngredientCount": 4,
+        "missedIngredients": [
+            {
+                "id": 9265,
+                "amount": 2,
+                "unit": "",
+                "unitLong": "",
+                "unitShort": "",
+                "aisle": "Produce",
+                "name": "persimmons",
+                "original": "2 persimmons, peeled and cubed",
+                "originalName": "persimmons, peeled and cubed",
+                "meta": [
+                    "cubed",
+                    "peeled"
+                ],
+                "image": "https://img.spoonacular.com/ingredients_100x100/hachiya-persimmon.png"
+            },
+            {
+                "id": 1012010,
+                "amount": 1,
+                "unit": "Tsp",
+                "unitLong": "Tsp",
+                "unitShort": "tsp",
+                "aisle": "Spices and Seasonings",
+                "name": "ground cinnamon",
+                "original": "1 Tsp. ground cinnamon",
+                "originalName": "ground cinnamon",
+                "meta": [],
+                "image": "https://img.spoonacular.com/ingredients_100x100/cinnamon.jpg"
+            },
+            {
+                "id": 2025,
+                "amount": 0.25,
+                "unit": "Tsp",
+                "unitLong": "Tsps",
+                "unitShort": "tsp",
+                "aisle": "Spices and Seasonings",
+                "name": "nutmeg",
+                "original": "¼ Tsp. freshly ground nutmeg",
+                "originalName": "freshly ground nutmeg",
+                "meta": [
+                    "freshly ground"
+                ],
+                "image": "https://img.spoonacular.com/ingredients_100x100/ground-nutmeg.jpg"
+            },
+            {
+                "id": 9152,
+                "amount": 1,
+                "unit": "Tsp",
+                "unitLong": "Tsp",
+                "unitShort": "tsp",
+                "aisle": "Produce",
+                "name": "lemon juice",
+                "original": "1 Tsp. fresh lemon juice",
+                "originalName": "fresh lemon juice",
+                "meta": [
+                    "fresh"
+                ],
+                "extendedName": "fresh lemon juice",
+                "image": "https://img.spoonacular.com/ingredients_100x100/lemon-juice.jpg"
+            }
+        ],
+        "usedIngredients": [
+            {
+                "id": 9003,
+                "amount": 6,
+                "unit": "",
+                "unitLong": "",
+                "unitShort": "",
+                "aisle": "Produce",
+                "name": "apples",
+                "original": "6 apples, peeled and cubed (I used granny smith)",
+                "originalName": "apples, peeled and cubed (I used granny smith)",
+                "meta": [
+                    "cubed",
+                    "peeled",
+                    "(I used granny smith)"
+                ],
+                "image": "https://img.spoonacular.com/ingredients_100x100/apple.jpg"
+            }
+        ],
+        "unusedIngredients": [],
+        "likes": 5
+    },
+    {
+        "id": 662895,
+        "title": "Tarte aux Pommes",
+        "image": "https://img.spoonacular.com/recipes/662895-312x231.jpg",
+        "imageType": "jpg",
+        "usedIngredientCount": 1,
+        "missedIngredientCount": 4,
+        "missedIngredients": [
+            {
+                "id": 1123,
+                "amount": 2,
+                "unit": "",
+                "unitLong": "",
+                "unitShort": "",
+                "aisle": "Milk, Eggs, Other Dairy",
+                "name": "eggs",
+                "original": "2 eggs",
+                "originalName": "eggs",
+                "meta": [],
+                "image": "https://img.spoonacular.com/ingredients_100x100/egg.png"
+            },
+            {
+                "id": 1053,
+                "amount": 1,
+                "unit": "cup",
+                "unitLong": "cup",
+                "unitShort": "cup",
+                "aisle": "Milk, Eggs, Other Dairy",
+                "name": "heavy whipping cream",
+                "original": "1 to 11/2 cup heavy whipping cream",
+                "originalName": "heavy whipping cream",
+                "meta": [],
+                "image": "https://img.spoonacular.com/ingredients_100x100/fluid-cream.jpg"
+            },
+            {
+                "id": 18334,
+                "amount": 1,
+                "unit": "",
+                "unitLong": "",
+                "unitShort": "",
+                "aisle": "Refrigerated",
+                "name": "pie crust already made and on your supermarket refrigerator section",
+                "original": "1 pie crust already made and on your supermarket refrigerator section.",
+                "originalName": "pie crust already made and on your supermarket refrigerator section",
+                "meta": [],
+                "image": "https://img.spoonacular.com/ingredients_100x100/pie-crust.jpg"
+            },
+            {
+                "id": 2050,
+                "amount": 1,
+                "unit": "teaspoon",
+                "unitLong": "teaspoon",
+                "unitShort": "tsp",
+                "aisle": "Baking",
+                "name": "vanilla extract",
+                "original": "1 teaspoon vanilla extract",
+                "originalName": "vanilla extract",
+                "meta": [],
+                "image": "https://img.spoonacular.com/ingredients_100x100/vanilla-extract.jpg"
+            }
+        ],
+        "usedIngredients": [
+            {
+                "id": 9003,
+                "amount": 6,
+                "unit": "",
+                "unitLong": "",
+                "unitShort": "",
+                "aisle": "Produce",
+                "name": "apples",
+                "original": "6 apples peeled, quartered and thinly sliced",
+                "originalName": "apples peeled, quartered and thinly sliced",
+                "meta": [
+                    "peeled",
+                    "thinly sliced",
+                    "quartered"
+                ],
+                "image": "https://img.spoonacular.com/ingredients_100x100/apple.jpg"
+            }
+        ],
+        "unusedIngredients": [],
+        "likes": 2
+    },
+    {
+        "id": 632603,
+        "title": "Apple Tarte Tatin",
+        "image": "https://img.spoonacular.com/recipes/632603-312x231.jpg",
+        "imageType": "jpg",
+        "usedIngredientCount": 1,
+        "missedIngredientCount": 4,
+        "missedIngredients": [
+            {
+                "id": 9152,
+                "amount": 0.5,
+                "unit": "",
+                "unitLong": "",
+                "unitShort": "",
+                "aisle": "Produce",
+                "name": "juice of lemon",
+                "original": "juice of 1/2 lemon",
+                "originalName": "juice lemon",
+                "meta": [],
+                "extendedName": "lemon (juice)",
+                "image": "https://img.spoonacular.com/ingredients_100x100/lemon-juice.jpg"
+            },
+            {
+                "id": 9156,
+                "amount": 1,
+                "unit": "",
+                "unitLong": "",
+                "unitShort": "",
+                "aisle": "Produce",
+                "name": "lemon zest",
+                "original": "zest of 1 lemon",
+                "originalName": "zest of lemon",
+                "meta": [],
+                "image": "https://img.spoonacular.com/ingredients_100x100/zest-lemon.jpg"
+            },
+            {
+                "id": 18337,
+                "amount": 1,
+                "unit": "sheet",
+                "unitLong": "sheet",
+                "unitShort": "sheet",
+                "aisle": "Refrigerated",
+                "name": "ready-made puff pastry",
+                "original": "1 sheet of ready-made frozen puff pastry, defrosted according to instructions, or, if you choose to be fancy (I usually do, but today is Wednesday), make your own rough puff pastry, using this formula",
+                "originalName": "ready-made frozen puff pastry, defrosted according to instructions, or, if you choose to be fancy (I usually do, but today is Wednesday), make your own rough puff pastry, using this formula",
+                "meta": [
+                    "frozen",
+                    "(I usually do, but today is Wednesday)"
+                ],
+                "extendedName": "frozen ready-made puff pastry",
+                "image": "https://img.spoonacular.com/ingredients_100x100/puff-pastry.png"
+            },
+            {
+                "id": 1145,
+                "amount": 5,
+                "unit": "tbsp",
+                "unitLong": "tablespoons",
+                "unitShort": "Tbsp",
+                "aisle": "Milk, Eggs, Other Dairy",
+                "name": "butter",
+                "original": "5 tbsp unsalted butter",
+                "originalName": "unsalted butter",
+                "meta": [
+                    "unsalted"
+                ],
+                "extendedName": "unsalted butter",
+                "image": "https://img.spoonacular.com/ingredients_100x100/butter-sliced.jpg"
+            }
+        ],
+        "usedIngredients": [
+            {
+                "id": 9003,
+                "amount": 6,
+                "unit": "small",
+                "unitLong": "smalls",
+                "unitShort": "small",
+                "aisle": "Produce",
+                "name": "but very apples",
+                "original": "6 small but very firm apples, peeled and cored. Granny Smiths will work, and so will Pink Lady, Fuji, Gala, etc. Main condition is — they have to be firm",
+                "originalName": "but very firm apples, peeled and cored. Granny Smiths will work, and so will Pink Lady, Fuji, Gala, etc. Main condition is — they have to be firm",
+                "meta": [
+                    "firm",
+                    "peeled"
+                ],
+                "image": "https://img.spoonacular.com/ingredients_100x100/apple.jpg"
+            }
+        ],
+        "unusedIngredients": [],
+        "likes": 1
+    },
+    {
+        "id": 157103,
+        "title": "Apple Cinnamon Blondies",
+        "image": "https://img.spoonacular.com/recipes/157103-312x231.jpg",
+        "imageType": "jpg",
+        "usedIngredientCount": 1,
+        "missedIngredientCount": 4,
+        "missedIngredients": [
+            {
+                "id": 1001,
+                "amount": 0.5,
+                "unit": "cup",
+                "unitLong": "cups",
+                "unitShort": "cup",
+                "aisle": "Milk, Eggs, Other Dairy",
+                "name": "butter",
+                "original": "1/2 cup butter, melted",
+                "originalName": "butter, melted",
+                "meta": [
+                    "melted"
+                ],
+                "image": "https://img.spoonacular.com/ingredients_100x100/butter-sliced.jpg"
+            },
+            {
+                "id": 2010,
+                "amount": 1,
+                "unit": "tsp",
+                "unitLong": "teaspoon",
+                "unitShort": "tsp",
+                "aisle": "Spices and Seasonings",
+                "name": "cinnamon",
+                "original": "1 tsp. cinnamon",
+                "originalName": "cinnamon",
+                "meta": [],
+                "image": "https://img.spoonacular.com/ingredients_100x100/cinnamon.jpg"
+            },
+            {
+                "id": 1123,
+                "amount": 1,
+                "unit": "",
+                "unitLong": "",
+                "unitShort": "",
+                "aisle": "Milk, Eggs, Other Dairy",
+                "name": "egg",
+                "original": "1 egg",
+                "originalName": "egg",
+                "meta": [],
+                "image": "https://img.spoonacular.com/ingredients_100x100/egg.png"
+            },
+            {
+                "id": 1052050,
+                "amount": 1,
+                "unit": "tsp",
+                "unitLong": "teaspoon",
+                "unitShort": "tsp",
+                "aisle": "Baking",
+                "name": "vanilla",
+                "original": "1 tsp. vanilla (paste or extract)",
+                "originalName": "vanilla (paste or extract)",
+                "meta": [
+                    "(paste or extract)"
+                ],
+                "image": "https://img.spoonacular.com/ingredients_100x100/vanilla.jpg"
+            }
+        ],
+        "usedIngredients": [
+            {
+                "id": 9003,
+                "amount": 0.5,
+                "unit": "cup",
+                "unitLong": "cups",
+                "unitShort": "cup",
+                "aisle": "Produce",
+                "name": "apple",
+                "original": "1/2 cup apple, finely diced",
+                "originalName": "apple, finely diced",
+                "meta": [
+                    "diced",
+                    "finely"
+                ],
+                "extendedName": "diced apple",
+                "image": "https://img.spoonacular.com/ingredients_100x100/apple.jpg"
+            }
+        ],
+        "unusedIngredients": [],
+        "likes": 0
+    }
+];
+
+    function displayRecipes(recipes) {
+        const container = document.getElementById('recipes-container');
+        container.innerHTML = '';
+
+        recipes.forEach(recipe => {
+            const recipeCard = document.createElement('div');
+            recipeCard.classList.add('recipe-card');
+
+            recipeCard.innerHTML = `
+                <img src="${recipe.image}" alt="${recipe.title}">
+                <div class="content">
+                    <h4>${recipe.title}</h4>
+                    <p>Used Ingredients: ${recipe.usedIngredientCount}</p>
+                    <p>Missed Ingredients: ${recipe.missedIngredientCount}</p>
+                    <a href="#">View Recipe</a>
+                </div>
+            `;
+
+            container.appendChild(recipeCard);
+        });
+    }
+
+    // Display recipes on page load
+    displayRecipes(recipesData);
+</script>
+</body>
+</html>

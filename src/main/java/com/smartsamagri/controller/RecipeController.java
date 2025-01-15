@@ -1,26 +1,33 @@
 package com.smartsamagri.controller;
 
-import com.smartsamagri.model.Recipe;
-import com.smartsamagri.service.RecipeService;
+import com.smartsamagri.service.APIProxyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import javax.servlet.http.HttpServletRequest;
 
-import java.util.List;
-
-@RestController
-@RequestMapping("/api/recipes")
+@Controller
+@RequestMapping("/recipes")
 public class RecipeController {
 
     @Autowired
-    private RecipeService recipeService;
+    private APIProxyService APIProxyService;
 
-    @PostMapping
-    public Recipe createRecipe(@RequestBody Recipe recipe) {
-        return recipeService.createRecipe(recipe);
-    }
+    @GetMapping("/{recipeId}")
+    @ResponseBody
+    public String getRecipePage(@PathVariable String recipeId, HttpServletRequest request) {
+        // Extract the domain dynamically from the request
+        String domain = request.getRequestURL().toString().replace(request.getRequestURI(), "");
 
-    @GetMapping
-    public List<Recipe> getAllRecipes() {
-        return recipeService.getAllRecipes();
+        // Fetch the HTML content
+        String recipePage = APIProxyService.fetchRecipeDetails(recipeId);
+
+        // Replace external URLs in the HTML with the domain
+        recipePage = recipePage.replace("https://spoonacular.com/recipes/", domain + "/recipes/");
+
+        return recipePage;
     }
 }
